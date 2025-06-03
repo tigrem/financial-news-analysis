@@ -37,7 +37,33 @@ def load_and_prepare_data(file_path):
     except Exception as e:
         print(f"An unexpected error occurred while loading '{os.path.basename(file_path)}': {e}")
         return None
-
+def load_stock_data(stock_data_dir, stock_data_files):
+    stock_data = {}
+    for file_name in stock_data_files:
+        ticker = file_name.split('_')[0]
+        file_path = os.path.join(stock_data_dir, file_name)
+        try:
+            df = pd.read_csv(file_path, parse_dates=['Date'], index_col='Date')
+            df.columns = [col.capitalize() for col in df.columns]
+            if 'Adj Close' in df.columns:
+                df.rename(columns={'Adj Close': 'Close'}, inplace=True)
+            elif 'Adjclose' in df.columns:
+                df.rename(columns={'Adjclose': 'Close'}, inplace=True)
+            stock_data[ticker] = df[['Close']]
+            print(f"Loaded stock data for {ticker}: {df.shape}")
+        except FileNotFoundError:
+            print(f"Error: Stock data not found at {file_path}")
+    print("\nStock data loading complete.")
+    return stock_data
+def load_news_data(news_file_path):
+    try:
+        news_df = pd.read_csv(news_file_path)
+        news_df['date'] = pd.to_datetime(news_df['date'], format='mixed', utc=True)
+        print(f"\nLoaded news data: {news_df.shape}")
+        return news_df
+    except FileNotFoundError:
+        print(f"Error: News data not found at {news_file_path}")
+        return None
 if __name__ == '__main__':
     data_dir = '../data/'
     file_name = 'AAPL_historical_data.csv'

@@ -67,7 +67,15 @@ def plot_daily_return(df, title):
     plt.grid(True)
     plt.tight_layout()
     plt.show()
-
+def visualize_correlations(correlation_df):
+    plt.figure(figsize=(10, 6))
+    plt.bar(correlation_df['Stock'], correlation_df['Correlation'], color='skyblue')
+    plt.xlabel('Stock Ticker')
+    plt.ylabel('Correlation Coefficient')
+    plt.title('Correlation between News Sentiment and Stock Daily Return')
+    plt.grid(axis='y')
+    plt.show()
+    print("\nCorrelation visualization complete.")
 
 if __name__ == '__main__':
     # Example Usage (requires a DataFrame 'stock_data' with 'Close', 'SMA_20', 'SMA_50', 'RSI', 'MACD', 'MACD_Signal', 'MACD_Hist','Volatility', 'Daily_Return' columns)
