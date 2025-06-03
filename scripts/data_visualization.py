@@ -72,13 +72,13 @@ def visualize_correlations(correlation_df):
     plt.bar(correlation_df['Stock'], correlation_df['Correlation'], color='skyblue')
     plt.xlabel('Stock Ticker')
     plt.ylabel('Correlation Coefficient')
-    plt.title('Correlation between News Sentiment and Stock Daily Return')
+    plt.title('Correlation between News Correlation coefficient and Stock Ticker Return')
     plt.grid(axis='y')
     plt.show()
     print("\nCorrelation visualization complete.")
 
 if __name__ == '__main__':
-    # Example Usage (requires a DataFrame 'stock_data' with 'Close', 'SMA_20', 'SMA_50', 'RSI', 'MACD', 'MACD_Signal', 'MACD_Hist','Volatility', 'Daily_Return' columns)
+
     data = {'Close': [150, 152, 155, 153, 156],
             'SMA_20': [None, None, 152.3, 152.8, 153.5],
             'SMA_50': [None] * 5,
